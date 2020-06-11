@@ -188,11 +188,7 @@ class _FormBuilderImagePickerState extends State<FormBuilderImagePicker> {
                                         imageQuality: widget.imageQuality,
                                         preferredCameraDevice:
                                             widget.preferredCameraDevice,
-                                        onImageSelected: (image) {
-                                          field.didChange(
-                                              [...field.value, image]);
-                                          Navigator.of(context).pop();
-                                        },
+                                        onImageSelected: (image) => _onImageSelected(context, field, image),
                                       );
                                     },
                                   );
@@ -205,5 +201,11 @@ class _FormBuilderImagePickerState extends State<FormBuilderImagePicker> {
         );
       },
     );
+  }
+
+  void _onImageSelected(BuildContext context, field, image) {
+    widget.onChanged(image);
+    field.didChange([...field.value, image]);
+    Navigator.of(context).pop();
   }
 }
