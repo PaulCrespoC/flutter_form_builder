@@ -203,9 +203,11 @@ class _FormBuilderImagePickerState extends State<FormBuilderImagePicker> {
     );
   }
 
-  void _onImageSelected(BuildContext context, field, image) {
-    widget.onChanged(image);
-    field.didChange([...field.value, image]);
+  void _onImageSelected(BuildContext context, field, image) async {
+    bool result = await widget.onChanged(image) as bool;
+    if (result) {
+      field.didChange([...field.value, image]);
+    }
     Navigator.of(context).pop();
   }
 }
